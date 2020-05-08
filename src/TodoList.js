@@ -1,4 +1,5 @@
 import React, {Component, Fragment} from 'react'
+import TodoItem from './TodoItem'
 
 class TodoList extends Component {
 
@@ -42,6 +43,7 @@ class TodoList extends Component {
   }
 
   handleDelete = (id) => {
+    console.log('11111', id)
     const { todoList } = this.state
     const idx = todoList.findIndex(item => item.id === id)
     todoList.splice(idx, 1)
@@ -64,13 +66,14 @@ class TodoList extends Component {
         <ul className='todo-list'>
           {
             todoList.map(item => {
-              return <li 
-                  key={item.id}
-                  onClick={() => this.handleDelete(item.id)}
-                  dangerouslySetInnerHTML={{__html: item.name}}
-                >
-                  {/* {`${item.id}---${item.name}`} */}
-                </li>
+              // return <li 
+              //     key={item.id}
+              //     onClick={() => this.handleDelete(item.id)}
+              //     dangerouslySetInnerHTML={{__html: item.name}}
+              //   >
+              //     {/* {`${item.id}---${item.name}`} */}
+              //   </li>
+              return <TodoItem todo={item} key={item.id} handleClick={this.handleDelete} />
             })
           }
         </ul>
