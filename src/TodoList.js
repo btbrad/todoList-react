@@ -25,30 +25,30 @@ class TodoList extends Component {
   }
 
   handleChange = (event) => {
-    this.setState({
-      name: event.target.value
-    })
+    const val = event.target.value
+    this.setState(() => ({
+      name: val
+    }))
   }
 
   addTodo = () => {
-    const { name, todoList } = this.state
+    const { name } = this.state
     if (!name) {
       alert('please input a task!!!')
       return
     }
-    this.setState({
+    this.setState(({ name, todoList }) => ({
       todoList: [...todoList, { id: todoList.length + 1, name: name }],
       name: ''
-    })
+    }))
   }
 
   handleDelete = (id) => {
-    console.log('11111', id)
-    const { todoList } = this.state
-    const idx = todoList.findIndex(item => item.id === id)
-    todoList.splice(idx, 1)
-    this.setState({
-      todoList: [...todoList]
+    this.setState((prevState) => {
+      const { todoList } = prevState
+      const idx = todoList.findIndex(item => item.id === id)
+      todoList.splice(idx, 1)
+      return {todoList: [...todoList]}
     })
   }
 
