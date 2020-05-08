@@ -31,6 +31,10 @@ class TodoList extends Component {
 
   addTodo = () => {
     const { name, todoList } = this.state
+    if (!name) {
+      alert('please input a task!!!')
+      return
+    }
     this.setState({
       todoList: [...todoList, { id: todoList.length + 1, name: name }],
       name: ''
@@ -38,7 +42,6 @@ class TodoList extends Component {
   }
 
   handleDelete = (id) => {
-    console.log(id)
     const { todoList } = this.state
     const idx = todoList.findIndex(item => item.id === id)
     todoList.splice(idx, 1)
