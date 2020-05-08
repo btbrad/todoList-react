@@ -8,6 +8,17 @@ button {
 ul,li {
   list-style: none;
 }
+.input-box > input {
+  outline: none;
+  appearance: none;
+  border: none;
+  border: 1px solid #f40;
+}
+.input-box > button {
+  border: 1px solid #f40;
+  margin-left: 20px;
+}
+
 * {
   margin: 0;
   padding: 0;

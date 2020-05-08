@@ -57,13 +57,20 @@ class TodoList extends Component {
     return (
       <Fragment>
         <div className='input-box'>
-          <input type="text" value={name} onChange={this.handleChange}/>
+          <label htmlFor="task">任务名</label>
+          <input id="task" type="text" value={name} onChange={this.handleChange}/>
           <button onClick={this.addTodo}>添加</button>
         </div>
         <ul className='todo-list'>
           {
             todoList.map(item => {
-              return <li key={item.id}>{`${item.id}---${item.name}`}--<button onClick={() => this.handleDelete(item.id)}>删除</button></li>
+              return <li 
+                  key={item.id}
+                  onClick={() => this.handleDelete(item.id)}
+                  dangerouslySetInnerHTML={{__html: item.name}}
+                >
+                  {/* {`${item.id}---${item.name}`} */}
+                </li>
             })
           }
         </ul>
