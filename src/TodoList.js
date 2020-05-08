@@ -37,20 +37,30 @@ class TodoList extends Component {
     })
   }
 
+  handleDelete = (id) => {
+    console.log(id)
+    const { todoList } = this.state
+    const idx = todoList.findIndex(item => item.id === id)
+    todoList.splice(idx, 1)
+    this.setState({
+      todoList: [...todoList]
+    })
+  }
+
   render() {
 
     const { todoList, name } = this.state
 
     return (
       <Fragment>
-        <div>
+        <div className='input-box'>
           <input type="text" value={name} onChange={this.handleChange}/>
           <button onClick={this.addTodo}>添加</button>
         </div>
-        <ul>
+        <ul className='todo-list'>
           {
             todoList.map(item => {
-              return <li key={item.id}>{item.name}</li>
+              return <li key={item.id}>{`${item.id}---${item.name}`}--<button onClick={() => this.handleDelete(item.id)}>删除</button></li>
             })
           }
         </ul>
