@@ -1,33 +1,33 @@
-import React, {Component, Fragment} from 'react'
+import React, { Component, Fragment } from 'react'
 import TodoItem from './TodoItem'
 
 class TodoList extends Component {
-
   constructor(props) {
     super(props)
     this.state = {
       todoList: [
         {
           id: 1,
-          name: 'Vue'
+          name: 'Vue',
         },
         {
           id: 2,
-          name: 'React'
+          name: 'React',
         },
         {
           id: 3,
-          name: 'Angular'
-        }
+          name: 'Angular',
+        },
       ],
-      name: ''
+      name: '',
     }
   }
 
   handleChange = (event) => {
+    console.log(this.inputDOM)
     const val = event.target.value
     this.setState(() => ({
-      name: val
+      name: val,
     }))
   }
 
@@ -37,49 +37,69 @@ class TodoList extends Component {
       alert('please input a task!!!')
       return
     }
-    this.setState(({ name, todoList }) => ({
-      todoList: [...todoList, { id: todoList.length + 1, name: name }],
-      name: ''
-    }))
+    this.setState(
+      ({ name, todoList }) => ({
+        todoList: [...todoList, { id: todoList.length + 1, name: name }],
+        name: '',
+      }),
+      () => {
+        console.log(1111, this.ul.querySelectorAll('li')) // setState是异步的，必须要在第二个回到函数里操作DOM
+      }
+    )
   }
 
   handleDelete = (id) => {
     this.setState((prevState) => {
       const { todoList } = prevState
-      const idx = todoList.findIndex(item => item.id === id)
+      const idx = todoList.findIndex((item) => item.id === id)
       todoList.splice(idx, 1)
-      return {todoList: [...todoList]}
+      return { todoList: [...todoList] }
     })
   }
 
   render() {
-
     const { todoList, name } = this.state
 
     return (
       <Fragment>
         <div className='input-box'>
-          <label htmlFor="task">任务名</label>
-          <input id="task" type="text" value={name} onChange={this.handleChange}/>
+          <label htmlFor='task'>任务名</label>
+          <input
+            id='task'
+            type='text'
+            value={name}
+            onChange={this.handleChange}
+            ref={(input) => {
+              this.inputDOM = input
+            }}
+          />
           <button onClick={this.addTodo}>添加</button>
         </div>
-        <ul className='todo-list'>
-          {
-            todoList.map(item => {
-              // return <li 
-              //     key={item.id}
-              //     onClick={() => this.handleDelete(item.id)}
-              //     dangerouslySetInnerHTML={{__html: item.name}}
-              //   >
-              //     {/* {`${item.id}---${item.name}`} */}
-              //   </li>
-              return <TodoItem todo={item} key={item.id} handleClick={this.handleDelete} />
-            })
-          }
+        <ul
+          className='todo-list'
+          ref={(ul) => {
+            this.ul = ul
+          }}>
+          {todoList.map((item) => {
+            // return <li
+            //     key={item.id}
+            //     onClick={() => this.handleDelete(item.id)}
+            //     dangerouslySetInnerHTML={{__html: item.name}}
+            //   >
+            //     {/* {`${item.id}---${item.name}`} */}
+            //   </li>
+            return (
+              <TodoItem
+                todo={item}
+                key={item.id}
+                handleClick={this.handleDelete}
+              />
+            )
+          })}
         </ul>
       </Fragment>
     )
   }
 }
 
-export  default TodoList
+export default TodoList
