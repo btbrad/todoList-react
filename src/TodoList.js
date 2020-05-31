@@ -7,18 +7,18 @@ class TodoList extends Component {
     super(props)
     this.state = {
       todoList: [
-        {
-          id: 1,
-          name: 'Vue',
-        },
-        {
-          id: 2,
-          name: 'React',
-        },
-        {
-          id: 3,
-          name: 'Angular',
-        },
+        // {
+        //   id: 1,
+        //   name: 'Vue',
+        // },
+        // {
+        //   id: 2,
+        //   name: 'React',
+        // },
+        // {
+        //   id: 3,
+        //   name: 'Angular',
+        // },
       ],
       name: '',
     }
@@ -61,16 +61,21 @@ class TodoList extends Component {
   componentDidMount() {
     axios
       .get(
-        ' https://www.easy-mock.com/mock/5ed33c4d3432d25bb5ec49e6/api/todolist'
+        // ' https://www.easy-mock.com/mock/5ed33c4d3432d25bb5ec49e6/api/todolist'
+        'http://localhost:4000/todolist'
       )
       .then((res) => {
         console.log('请求成功', res)
-        if (res.code !== 1) {
+        if (res.data.code !== 1) {
           return
         }
-        this.setState(() => ({
-          todoList: res.data.list,
-        }))
+        const list = res.data.list
+        const todolist = list.map((item, index) => {
+          return { id: index + 1, name: item }
+        })
+        this.setState({
+          todoList: todolist,
+        })
       })
       .catch((error) => {
         console.log('报错')
