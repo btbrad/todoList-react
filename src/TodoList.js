@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import TodoItem from './TodoItem'
+import axios from 'axios'
 
 class TodoList extends Component {
   constructor(props) {
@@ -55,6 +56,19 @@ class TodoList extends Component {
       todoList.splice(idx, 1)
       return { todoList: [...todoList] }
     })
+  }
+
+  componentDidMount() {
+    axios
+      .get(
+        ' https://www.easy-mock.com/mock/5ed33c4d3432d25bb5ec49e6/api/todolist'
+      )
+      .then((res) => {
+        console.log('请求成功' + res)
+      })
+      .catch((error) => {
+        console.log('报错')
+      })
   }
 
   render() {
