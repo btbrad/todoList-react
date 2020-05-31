@@ -64,7 +64,13 @@ class TodoList extends Component {
         ' https://www.easy-mock.com/mock/5ed33c4d3432d25bb5ec49e6/api/todolist'
       )
       .then((res) => {
-        console.log('请求成功' + res)
+        console.log('请求成功', res)
+        if (res.code !== 1) {
+          return
+        }
+        this.setState(() => ({
+          todoList: res.data.list,
+        }))
       })
       .catch((error) => {
         console.log('报错')
