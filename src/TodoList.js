@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import TodoItem from './TodoItem'
 import axios from 'axios'
+import Test from './animation'
 
 class TodoList extends Component {
   constructor(props) {
@@ -122,6 +123,7 @@ class TodoList extends Component {
             )
           })}
         </ul>
+        <Test />
       </Fragment>
     )
   }
