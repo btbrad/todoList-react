@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import TodoItem from './TodoItem'
 import axios from 'axios'
+import { Input, Button, List } from 'antd'
+import 'antd/dist/antd.css'
 
 class TodoList extends Component {
   constructor(props) {
@@ -88,8 +90,20 @@ class TodoList extends Component {
     return (
       <Fragment>
         <div className='input-box'>
-          <label htmlFor='task'>任务名</label>
-          <input
+          {/* <label htmlFor='task'>任务名</label> */}
+          <Input
+            placeholder='请输入todo'
+            id='task'
+            type='text'
+            value={name}
+            maxLength={20}
+            style={{ width: '300px' }}
+            onChange={this.handleChange}
+            ref={(input) => {
+              this.inputDOM = input
+            }}
+          />
+          {/* <input
             id='task'
             type='text'
             value={name}
@@ -97,10 +111,14 @@ class TodoList extends Component {
             ref={(input) => {
               this.inputDOM = input
             }}
-          />
-          <button onClick={this.addTodo}>添加</button>
+          /> */}
+          <Button type='primary' onClick={this.addTodo}>
+            添加
+          </Button>
+          {/* <button onClick={this.addTodo}>添加</button> */}
         </div>
-        <ul
+        <List
+          bordered
           className='todo-list'
           ref={(ul) => {
             this.ul = ul
@@ -121,7 +139,7 @@ class TodoList extends Component {
               />
             )
           })}
-        </ul>
+        </List>
       </Fragment>
     )
   }

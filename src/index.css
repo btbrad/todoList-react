@@ -2,20 +2,25 @@
   vertical-align: middle;
   margin: 50px auto 0;
 }
+
 button {
   vertical-align: middle;
 }
-ul,li {
+
+ul,
+li {
   list-style: none;
 }
-.input-box > input {
-  outline: none;
+
+.input-box>input {
+  /* outline: none;
   appearance: none;
-  border: none;
-  border: 1px solid #f40;
+  border: none; */
+  /* border: 1px solid #f40; */
 }
-.input-box > button {
-  border: 1px solid #f40;
+
+.input-box>button {
+  /* border: 1px solid #f40; */
   margin-left: 20px;
 }
 
@@ -24,6 +29,8 @@ ul,li {
   padding: 0;
   box-sizing: border-box;
 }
+
 .todo-list {
   margin-top: 30px;
+  width: 300px;
 }
