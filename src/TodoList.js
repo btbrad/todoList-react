@@ -3,6 +3,7 @@ import TodoItem from './TodoItem'
 import axios from 'axios'
 import { Input, Button, List } from 'antd'
 import 'antd/dist/antd.css'
+import Test from './animation'
 
 class TodoList extends Component {
   constructor(props) {
@@ -140,6 +141,7 @@ class TodoList extends Component {
             )
           })}
         </List>
+        <Test />
       </Fragment>
     )
   }
