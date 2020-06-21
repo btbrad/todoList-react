@@ -4,27 +4,30 @@ import axios from 'axios'
 import { Input, Button, List } from 'antd'
 import 'antd/dist/antd.css'
 import Test from './animation'
+import store from './store/index'
 
 class TodoList extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      todoList: [
-        // {
-        //   id: 1,
-        //   name: 'Vue',
-        // },
-        // {
-        //   id: 2,
-        //   name: 'React',
-        // },
-        // {
-        //   id: 3,
-        //   name: 'Angular',
-        // },
-      ],
-      name: '',
-    }
+    // this.state = {
+    //   todoList: [
+    //     // {
+    //     //   id: 1,
+    //     //   name: 'Vue',
+    //     // },
+    //     // {
+    //     //   id: 2,
+    //     //   name: 'React',
+    //     // },
+    //     // {
+    //     //   id: 3,
+    //     //   name: 'Angular',
+    //     // },
+    //   ],
+    //   name: '',
+    // }
+    console.log(store.getState())
+    this.state = store.getState()
   }
 
   handleChange = (event) => {
@@ -47,7 +50,7 @@ class TodoList extends Component {
         name: '',
       }),
       () => {
-        console.log(1111, this.ul.querySelectorAll('li')) // setState是异步的，必须要在第二个回到函数里操作DOM
+        console.log(1111, this.ul) // setState是异步的，必须要在第二个回到函数里操作DOM
       }
     )
   }
@@ -118,12 +121,7 @@ class TodoList extends Component {
           </Button>
           {/* <button onClick={this.addTodo}>添加</button> */}
         </div>
-        <List
-          bordered
-          className='todo-list'
-          ref={(ul) => {
-            this.ul = ul
-          }}>
+        <List bordered className='todo-list'>
           {todoList.map((item) => {
             // return <li
             //     key={item.id}
