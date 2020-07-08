@@ -4,6 +4,7 @@ import TodoItem from './TodoItem'
 import { Input, Button, List } from 'antd'
 import 'antd/dist/antd.css'
 import Test from './animation'
+import { add, del } from './store/actions'
 
 class TodoList extends Component {
 
@@ -24,10 +25,7 @@ class TodoList extends Component {
       alert('please input a task!!!')
       return
     }
-    this.props.store.dispatch({
-      type: 'add',
-      payload: { id: this.props.store.getState().todoList.length + 1, name }
-    })
+    this.props.store.dispatch(add({ id: this.props.store.getState().todoList.length + 1, name }))
     this.setState(
       // ({ name, todoList }) => ({
       //   todoList: [...todoList, { id: todoList.length + 1, name: name }],
@@ -49,12 +47,7 @@ class TodoList extends Component {
     //   todoList.splice(idx, 1)
     //   return { todoList: [...todoList] }
     // })
-    this.props.store.dispatch({
-      type: 'delete',
-      payload: {
-        id: id
-      }
-    })
+    this.props.store.dispatch(del({id}))
   }
 
   componentDidMount() {
