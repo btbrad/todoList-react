@@ -1,2 +1,4 @@
-export const add = params => ({ type: 'add', payload: params }) 
-export const del = params => ({ type: 'delete', payload: params }) 
+import { ADD, DELETE } from './actionTypes'
+
+export const add = params => ({ type: ADD, payload: params }) 
+export const del = params => ({ type: DELETE, payload: params }) 

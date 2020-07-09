@@ -1,3 +1,5 @@
+import { ADD, DELETE } from './actionTypes'
+
 const defaultState = {
   todoList: [
     {
@@ -17,9 +19,9 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case 'add':
+    case ADD:
       return {todoList: [...state.todoList, action.payload]}
-    case 'delete':
+    case DELETE:
       let idx = state.todoList.findIndex(item => item.id === action.payload.id)
       state.todoList.splice(idx, 1)
       return {todoList: [...state.todoList]}
