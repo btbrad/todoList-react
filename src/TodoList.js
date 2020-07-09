@@ -3,7 +3,7 @@ import TodoItem from './TodoItem'
 // import axios from 'axios'
 import { Input, Button, List } from 'antd'
 import 'antd/dist/antd.css'
-import Test from './animation'
+// import Test from './animation'
 import store from './store/index'
 import { add, del, setName } from './store/actions'
 
@@ -27,27 +27,9 @@ class TodoList extends Component {
       return
     }
     store.dispatch(add({ id: store.getState().todoList.length + 1, name }))
-    // this.setState(
-      // ({ name, todoList }) => ({
-      //   todoList: [...todoList, { id: todoList.length + 1, name: name }],
-      //   name: '',
-      // }),
-      // () => {
-      //   console.log(1111, this.ul) // setState是异步的，必须要在第二个回到函数里操作DOM
-      // }
-    //   {
-    //     name: ''
-    //   }
-    // )
   }
 
   handleDelete = (id) => {
-    // this.setState((prevState) => {
-    //   const { todoList } = prevState
-    //   const idx = todoList.findIndex((item) => item.id === id)
-    //   todoList.splice(idx, 1)
-    //   return { todoList: [...todoList] }
-    // })
     store.dispatch(del({id}))
   }
 
@@ -82,7 +64,7 @@ class TodoList extends Component {
       <Fragment>
         <div className='input-box'>
           <Input
-            placeholder='请输入todo'
+            placeholder='PLease Enter a ToDo'
             id='task'
             type='text'
             value={name}
@@ -94,10 +76,10 @@ class TodoList extends Component {
             }}
           />
           <Button type='primary' onClick={this.addTodo}>
-            添加
+            ADD
           </Button>
         </div>
-        <List bordered className='todo-list'>
+        {todoList.length ? <List bordered className='todo-list'>
           {todoList && todoList.map((item) => {
             return (
               <TodoItem
@@ -107,8 +89,8 @@ class TodoList extends Component {
               />
             )
           })}
-        </List>
-        <Test />
+        </List> : ''}
+        {/* <Test /> */}
       </Fragment>
     )
   }

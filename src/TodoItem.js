@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { List } from 'antd'
+import { List, Button } from 'antd'
 import 'antd/dist/antd.css'
 
 const ListItem = List.Item
@@ -8,10 +8,14 @@ const ListItem = List.Item
 const TodoItem = function (props) {
   return (
     <ListItem
-      onClick={() => {
+      className="list-wrap"
+    >
+      {props.todo.name}
+      <Button className='btn-del' type="primary" danger onClick={() => {
         props.handleClick(props.todo.id)
       }}>
-      {props.todo.name}
+        DELETE
+      </Button>
     </ListItem>
   )
 }
