@@ -4,19 +4,20 @@ import TodoItem from './TodoItem'
 import { Input, Button, List } from 'antd'
 import 'antd/dist/antd.css'
 import Test from './animation'
-import { add, del } from './store/actions'
+import store from './store/index'
+import { add, del, setName } from './store/actions'
 
 class TodoList extends Component {
 
-  state = {
-    name:''
+  constructor(props) {
+    super(props)
+    this.state = store.getState()
+    store.subscribe(() => {this.setState(store.getState())})
   }
 
   handleChange = (event) => {
     const val = event.target.value
-    this.setState(() => ({
-      name: val,
-    }))
+    store.dispatch(setName({name: val}))
   }
 
   addTodo = () => {
@@ -25,8 +26,8 @@ class TodoList extends Component {
       alert('please input a task!!!')
       return
     }
-    this.props.store.dispatch(add({ id: this.props.store.getState().todoList.length + 1, name }))
-    this.setState(
+    store.dispatch(add({ id: store.getState().todoList.length + 1, name }))
+    // this.setState(
       // ({ name, todoList }) => ({
       //   todoList: [...todoList, { id: todoList.length + 1, name: name }],
       //   name: '',
@@ -34,10 +35,10 @@ class TodoList extends Component {
       // () => {
       //   console.log(1111, this.ul) // setState是异步的，必须要在第二个回到函数里操作DOM
       // }
-      {
-        name: ''
-      }
-    )
+    //   {
+    //     name: ''
+    //   }
+    // )
   }
 
   handleDelete = (id) => {
@@ -47,7 +48,7 @@ class TodoList extends Component {
     //   todoList.splice(idx, 1)
     //   return { todoList: [...todoList] }
     // })
-    this.props.store.dispatch(del({id}))
+    store.dispatch(del({id}))
   }
 
   componentDidMount() {
@@ -75,15 +76,11 @@ class TodoList extends Component {
   }
 
   render() {
-    console.log(this.props)
-    const { todoList} = this.props.store.getState()
-    const {name} = this.state
-    console.log('更新后store', todoList)
+    const {name, todoList} = this.state
 
     return (
       <Fragment>
         <div className='input-box'>
-          {/* <label htmlFor='task'>任务名</label> */}
           <Input
             placeholder='请输入todo'
             id='task'
@@ -96,29 +93,12 @@ class TodoList extends Component {
               this.inputDOM = input
             }}
           />
-          {/* <input
-            id='task'
-            type='text'
-            value={name}
-            onChange={this.handleChange}
-            ref={(input) => {
-              this.inputDOM = input
-            }}
-          /> */}
           <Button type='primary' onClick={this.addTodo}>
             添加
           </Button>
-          {/* <button onClick={this.addTodo}>添加</button> */}
         </div>
         <List bordered className='todo-list'>
           {todoList && todoList.map((item) => {
-            // return <li
-            //     key={item.id}
-            //     onClick={() => this.handleDelete(item.id)}
-            //     dangerouslySetInnerHTML={{__html: item.name}}
-            //   >
-            //     {/* {`${item.id}---${item.name}`} */}
-            //   </li>
             return (
               <TodoItem
                 todo={item}
