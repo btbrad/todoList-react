@@ -1,23 +1,22 @@
 import React, { Component, Fragment } from 'react'
-import TodoItem from './TodoItem'
 // import axios from 'axios'
-import { Input, Button, List } from 'antd'
-import 'antd/dist/antd.css'
 // import Test from './animation'
 import store from './store/index'
 import { add, del, setName } from './store/actions'
+import TodoListUI from './TodoListUI'
 
 class TodoList extends Component {
-
   constructor(props) {
     super(props)
     this.state = store.getState()
-    store.subscribe(() => {this.setState(store.getState())})
+    store.subscribe(() => {
+      this.setState(store.getState())
+    })
   }
 
   handleChange = (event) => {
     const val = event.target.value
-    store.dispatch(setName({name: val}))
+    store.dispatch(setName({ name: val }))
   }
 
   addTodo = () => {
@@ -30,7 +29,7 @@ class TodoList extends Component {
   }
 
   handleDelete = (id) => {
-    store.dispatch(del({id}))
+    store.dispatch(del({ id }))
   }
 
   componentDidMount() {
@@ -58,38 +57,17 @@ class TodoList extends Component {
   }
 
   render() {
-    const {name, todoList} = this.state
+    const { name, todoList } = this.state
 
     return (
       <Fragment>
-        <div className='input-box'>
-          <Input
-            placeholder='PLease Enter a ToDo'
-            id='task'
-            type='text'
-            value={name}
-            maxLength={20}
-            style={{ width: '300px' }}
-            onChange={this.handleChange}
-            ref={(input) => {
-              this.inputDOM = input
-            }}
-          />
-          <Button type='primary' onClick={this.addTodo}>
-            ADD
-          </Button>
-        </div>
-        {todoList.length ? <List bordered className='todo-list'>
-          {todoList && todoList.map((item) => {
-            return (
-              <TodoItem
-                todo={item}
-                key={item.id}
-                handleClick={this.handleDelete}
-              />
-            )
-          })}
-        </List> : ''}
+        <TodoListUI
+          name={name}
+          todoList={todoList}
+          handleInputChange={this.handleChange}
+          addTodo={this.addTodo}
+          handleDelete={this.handleDelete}
+        />
         {/* <Test /> */}
       </Fragment>
     )
