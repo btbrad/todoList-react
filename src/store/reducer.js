@@ -1,4 +1,4 @@
-import { ADD, DELETE, SET_NAME } from './actionTypes'
+import { ADD, DELETE, SET_NAME, INIT_LIST } from './actionTypes'
 
 const defaultState = {
   name: '',
@@ -20,16 +20,22 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case SET_NAME:
+    case INIT_LIST:
       let newState = JSON.parse(JSON.stringify(state))
-      newState.name = action.payload.name
+      newState.todoList = action.payload.list
       return newState
+    case SET_NAME:
+      let newState1 = JSON.parse(JSON.stringify(state))
+      newState1.name = action.payload.name
+      return newState1
     case ADD:
-      return {todoList: [...state.todoList, action.payload], name: ''}
+      return { todoList: [...state.todoList, action.payload], name: '' }
     case DELETE:
-      let idx = state.todoList.findIndex(item => item.id === action.payload.id)
+      let idx = state.todoList.findIndex(
+        (item) => item.id === action.payload.id
+      )
       state.todoList.splice(idx, 1)
-      return {todoList: [...state.todoList], name: ''}
+      return { todoList: [...state.todoList], name: '' }
     default:
       return state
   }
